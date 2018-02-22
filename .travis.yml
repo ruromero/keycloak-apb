@@ -58,4 +58,4 @@ script:
   - oc cluster up --version=$OPENSHIFT_VERSION
   - oc login -u system:admin
   - oc new-project $APB_NAME
-- docker run --rm --net=host -v $HOME/.kube:/opt/apb/.kube:z -u $UID $APB_NAME test --extra-vars "travis=true"
+  - docker run --rm --net=host -v $HOME/.kube:/opt/apb/.kube:z -u $UID $APB_NAME test --extra-vars "travis=true"
