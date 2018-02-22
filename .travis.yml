@@ -52,10 +52,10 @@ jobs:
 
 # Test Stage
 script:
-  - export APB_NAME=mongodb-apb
+  - export APB_NAME=keycloak-apb
   - apb build
   - sudo docker cp $(docker create docker.io/openshift/origin:$OPENSHIFT_VERSION):/bin/oc /usr/local/bin/oc
   - oc cluster up --version=$OPENSHIFT_VERSION
   - oc login -u system:admin
   - oc new-project $APB_NAME
-- docker run --rm --net=host -v $HOME/.kube:/opt/apb/.kube:z -u $UID $APB_NAME test --extra-vars "travis=true" 
+- docker run --rm --net=host -v $HOME/.kube:/opt/apb/.kube:z -u $UID $APB_NAME test --extra-vars "travis=true"
