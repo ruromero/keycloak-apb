@@ -18,7 +18,7 @@ spec:
         service: {{ application_name }}
     spec:
       containers:
-      - image: ' '
+      - image: {{ keycloak_image_name }}:{{ keycloak_image_tag }}
         imagePullPolicy: IfNotPresent
         name: keycloak
         readinessProbe:
