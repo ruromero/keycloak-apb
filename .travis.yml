@@ -52,7 +52,7 @@ jobs:
 
 # Test Stage
 script:
-  - export APB_NAME=keycloak-apb
+  - export APB_NAME=rhsso-apb
   - apb build
   - sudo docker cp $(docker create docker.io/openshift/origin:$OPENSHIFT_VERSION):/bin/oc /usr/local/bin/oc
   - oc cluster up --version=$OPENSHIFT_VERSION
