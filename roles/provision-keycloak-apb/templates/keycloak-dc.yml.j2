@@ -66,11 +66,3 @@ spec:
         resources: {}
   triggers:
   - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - keycloak
-      from:
-        kind: DockerImage
-        name: {{ keycloak_image_name }}:{{ keycloak_image_tag }}
-    type: ImageChange
