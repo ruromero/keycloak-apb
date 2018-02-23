@@ -11,7 +11,7 @@
     namespace: "{{ namespace }}"
     state: present
     src: "{{ is.dest | default(is.path) }}"
-    
+
 - name: Create keycloak service
   k8s_v1_service:
     name: '{{ application_name }}'

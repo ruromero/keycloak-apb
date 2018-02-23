@@ -9,7 +9,7 @@ spec:
   lookupPolicy:
     local: false
   tags:
-  - name: {{ keycloak_image_tag }}
+  - name: "{{ keycloak_image_tag }}"
     from:
       kind: DockerImage
       name: {{ keycloak_image_name }}:{{ keycloak_image_tag }}
