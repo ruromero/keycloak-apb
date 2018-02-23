@@ -35,7 +35,7 @@ jobs:
     script:
       # Verify all playbooks have valid syntax
       - |
-        for PLAYBOOK in playbooks/{provision,deprovision,test}.yml
+        for PLAYBOOK in playbooks/{provision,deprovision,bind,unbind,test}.yml
         do ansible-playbook $PLAYBOOK --syntax-check
         done
   - stage: lint
@@ -58,4 +58,4 @@ script:
   - oc cluster up --version=$OPENSHIFT_VERSION
   - oc login -u system:admin
   - oc new-project $APB_NAME
-  - docker run --rm --net=host -v $HOME/.kube:/opt/apb/.kube:z -u $UID $APB_NAME test --extra-vars "travis=true"
+  - docker run --rm --net=host -e "POD_NAME=$APB_NAME-pod" -e "POD_NAMESPACE=$APB_NAME" -v $HOME/.kube:/opt/apb/.kube:z -u $UID $APB_NAME test --extra-vars "travis=true namespace=$APB_NAME"
