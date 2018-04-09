@@ -1,4 +1,16 @@
 ---
+- name: "Set Keycloak URI when not defined"
+  include_role:
+    name: set-keycloak-uri
+  when: (not apb_keycloak_uri is defined) OR (apb_keycloak_uri == "")
+
+- name: "Set Keycloak URI from user defined variable"
+  set_fact:
+    keycloak_uri: "{{ apb_keycloak_uri }}"
+  when:
+    - apb_keycloak_uri is defined
+    - apb_keycloak_uri != ""
+
 - name: Get namespace info
   k8s_v1_namespace:
     name: "{{ namespace }}"
@@ -7,6 +19,10 @@
 - name: Get project name
   set_fact:
     project_name: '{{project.namespace.metadata.annotations["openshift.io/display-name"]}}'
+
+- name: Set Realm name to {{ namespace }}
+  set_fact:
+    realm_name: "{{ namespace }}"
 
 - name: Generate keycloak auth token
   uri:
@@ -24,7 +40,7 @@
     src: namespace_realm.json.j2
     dest: /tmp/keycloak/namespace_realm.json
 
-- name: "Create {{ namespace }} realm"
+- name: "Create {{ realm_name }} realm"
   uri:
     url: "{{ keycloak_uri }}/auth/admin/realms"
     method: POST
@@ -34,11 +50,3 @@
     headers:
       Authorization: "bearer {{ keycloak_auth_response.json.access_token }}"
     status_code: 201
-
-# New encoding task makes admin credentials available to future bind operations
-- name: Encode provision credentials
-  asb_encode_binding:
-    fields:
-      admin_username: "{{ admin_username }}"
-      admin_password: "{{ admin_password }}"
-      keycloak_uri: "{{ keycloak_uri }}"

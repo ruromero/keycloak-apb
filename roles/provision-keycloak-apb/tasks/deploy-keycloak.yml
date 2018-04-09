@@ -55,7 +55,7 @@
   when: apb_keycloak_uri is defined
 
 - set_fact:
-    db_vendor: "{{ vendor[db_type | default('H2')] }}"
+    db_vendor: "{{ vendors[db_type | default('Ephemeral')] }}"
 
 - name: Process DeploymentConfig from template
   template:

@@ -1,3 +1,3 @@
-{{ sso_realm_name }}: "{{ namespace }}"
-{{ sso_client_name }}: "{{ namespace }}-{{ service_name }}"
-{{ sso_url_name }}: "{{ _apb_provision_creds.keycloak_uri }}/auth"
+{{ sso_realm_name }}: "{{ _apb_provision_creds.realm_name }}"
+{{ sso_client_name }}: "{{ _apb_provision_creds.realm_name }}-{{ service_name }}"
+{{ sso_url_name }}: "{{ keycloak_uri }}/auth"

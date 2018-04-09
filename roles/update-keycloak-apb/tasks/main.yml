@@ -1,0 +1,21 @@
+---
+- name: "[SET UP] tmp folder"
+  file:
+    path: /tmp/keycloak
+    state: directory
+
+- set_fact:
+    db_vendor: "{{ vendors[db_type | default('Ephemeral')] }}"
+
+- name: Process DeploymentConfig from template
+  template:
+    src: keycloak-dc.yml.j2
+    dest: "/tmp/keycloak/keycloak-dc.yml"
+  register: dc
+
+- name: Create DeploymentConfig
+  openshift_v1_deployment_config:
+    name: "{{ application_name }}"
+    namespace: "{{ namespace}}"
+    state: present
+    src: "{{ dc.dest | default(dc.path) }}"

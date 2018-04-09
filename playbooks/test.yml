@@ -15,8 +15,7 @@
     - name: "[TESTS] Start tests"
       include_tasks: test_plan.yml
       with_items:
-        - persistent
-        - ephemeral
+        - local
         # No need to test it as it requires an existing keycloak
         # therefore the test will be exactly the same as the ephemeral
         # - external

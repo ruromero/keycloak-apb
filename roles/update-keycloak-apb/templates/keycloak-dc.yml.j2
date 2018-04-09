@@ -18,9 +18,7 @@ spec:
         service: {{ application_name }}
     spec:
       containers:
-      - image: ' '
-        imagePullPolicy: IfNotPresent
-        name: keycloak
+      - name: keycloak
         readinessProbe:
           initialDelaySeconds: 40
           failureThreshold: 10
@@ -46,14 +44,3 @@ spec:
           protocol: TCP
           name: web
         resources: {}
-  triggers:
-  - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - keycloak
-      from:
-        kind: ImageStreamTag
-        name: keycloak-openshift:latest
-        namespace: openshift
-    type: ImageChange

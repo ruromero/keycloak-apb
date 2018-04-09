@@ -10,9 +10,9 @@
   retries: 5
   delay: 2
 
-- name: "Delete realm {{ namespace }}"
+- name: "Delete realm {{ _apb_provision_creds.realm_name }}"
   uri:
-    url: "{{ keycloak_uri }}/auth/admin/realms/{{ namespace }}"
+    url: "{{ keycloak_uri }}/auth/admin/realms/{{ _apb_provision_creds.realm_name }}"
     method: DELETE
     validate_certs: no
     headers:
