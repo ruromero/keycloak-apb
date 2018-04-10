@@ -2,8 +2,8 @@
 # Global constants
 application_name: keycloak
 
-keycloak_image_name: docker.io/jboss/keycloak-openshift
-keycloak_image_tag: 3.4.3.Final
+keycloak_image_name: ruromero/keycloak
+keycloak_image_tag: openshift-latest
 realm_name: master
 vendors:
   MySQL: mysql
