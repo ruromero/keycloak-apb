@@ -17,4 +17,4 @@
     validate_certs: no
     headers:
       Authorization: "bearer {{ keycloak_auth_response.json.access_token }}"
-    status_code: 201, 204, 409
+    status_code: 204
