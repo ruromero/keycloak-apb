@@ -8,6 +8,10 @@
   include_tasks: deploy-keycloak.yml
   when: _apb_plan_id != 'external'
 
+- name: "[KEYCLOAK] Set Keycloak URI"
+  include_role:
+    name: set-keycloak-uri
+
 - name: "[KEYCLOAK] Provision"
   include_tasks: provision-keycloak.yml
   when: _apb_plan_id == 'external'
@@ -19,3 +23,4 @@
       admin_username: "{{ admin_username }}"
       admin_password: "{{ admin_password }}"
       realm_name: "{{ realm_name }}"
+      keycloak_uri: "{{ keycloak_uri }}"

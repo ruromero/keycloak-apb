@@ -1,7 +1,7 @@
 ---
 - name: "Generate keycloak auth token"
   uri:
-    url: "{{ keycloak_uri }}/auth/realms/master/protocol/openid-connect/token"
+    url: "{{ _apb_provision_creds.keycloak_uri }}/auth/realms/master/protocol/openid-connect/token"
     method: POST
     body: "client_id=admin-cli&username={{ admin_username }}&password={{ admin_password }}&grant_type=password"
     validate_certs: no
@@ -12,7 +12,7 @@
 
 - name: "Delete realm {{ _apb_provision_creds.realm_name }}"
   uri:
-    url: "{{ keycloak_uri }}/auth/admin/realms/{{ _apb_provision_creds.realm_name }}"
+    url: "{{ _apb_provision_creds.keycloak_uri }}/auth/admin/realms/{{ _apb_provision_creds.realm_name }}"
     method: DELETE
     validate_certs: no
     headers:

@@ -1,29 +1,18 @@
-- name: "Set Keycloak URI when not defined"
-  include_role:
-    name: set-keycloak-uri
-  when: (not apb_keycloak_uri is defined) OR (apb_keycloak_uri == "")
-
-- name: "Set Keycloak URI from user defined variable"
-  set_fact:
-    keycloak_uri: "{{ apb_keycloak_uri }}"
-  when:
-    - apb_keycloak_uri is defined
-    - apb_keycloak_uri != ""
-
+---
 - name: "Generate keycloak auth token"
   uri:
-    url: "{{ keycloak_uri }}/auth/realms/master/protocol/openid-connect/token"
+    url: "{{ _apb_provision_creds.keycloak_uri }}/auth/realms/master/protocol/openid-connect/token"
     method: POST
     body: "client_id=admin-cli&username={{ _apb_provision_creds.admin_username }}&password={{ _apb_provision_creds.admin_password }}&grant_type=password"
     validate_certs: no
   register: keycloak_auth_response
   until: keycloak_auth_response.status == 200
-  retries: 100
+  retries: 10
   delay: 2
 
 - name: "Create {{ service_name }} client in realm {{ _apb_provision_creds.realm_name }}"
   uri:
-    url: "{{ keycloak_uri }}/auth/admin/realms/{{ _apb_provision_creds.realm_name }}/clients"
+    url: "{{ _apb_provision_creds.keycloak_uri }}/auth/admin/realms/{{ _apb_provision_creds.realm_name }}/clients"
     method: POST
     body: "{\"id\": \"{{ _apb_provision_creds.realm_name }}-{{ service_name }}\", \"redirectUris\": [\"{{ redirect_uris }}\"], \"webOrigins\": [\"{{ web_origins | default('') }}\"], \"publicClient\": true }"
     validate_certs: no

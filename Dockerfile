@@ -67,14 +67,6 @@ IFVSTAogICAgICAgIGRlc2NyaXB0aW9uOiBVUkwgd2hlcmUgdGhlIGFwcGxpY2F0aW9ucyBzaG91\
 bGQgcmVkaXJlY3QgdG8gZm9yIGF1dGhlbnRpY2F0aW9uLiBNdXN0IGJlIHJlc29sdmFibGUgYnkg\
 dGhlIGJyb3dzZXIgYW5kIHBvZHMuCiAgICBiaW5kX3BhcmFtZXRlcnM6ICpfYmluZF9wYXJhbXMK"
 
-
-
-
-
-
-
-
-
 COPY playbooks /opt/apb/actions
 COPY roles /opt/ansible/roles
 
